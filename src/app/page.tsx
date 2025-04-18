@@ -26,6 +26,7 @@ export default function Home() {
     }
     return 0;
   });
+  const [adIndexes, setAdIndexes] = useState<number[]>([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -45,6 +46,15 @@ export default function Home() {
       }
     }
   }, [adBlockerConfirmations]);
+
+  useEffect(() => {
+    // Generate random indexes for ads on component mount
+    setAdIndexes([
+      Math.floor(Math.random() * 6) + 1,
+      Math.floor(Math.random() * 6) + 1,
+      Math.floor(Math.random() * 6) + 1
+    ]);
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -391,7 +401,7 @@ export default function Home() {
             className="inline-block"
           >
             <Image
-              src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+              src={`/ads/${adIndexes[0] || 1}.gif`}
               alt="Download Now"
               width={250}
               height={83}
@@ -476,7 +486,7 @@ export default function Home() {
                   className="inline-block"
                 >
                   <Image
-                    src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+                    src={`/ads/${adIndexes[1] || 2}.gif`}
                     alt="Download Now"
                     width={250}
                     height={83}
@@ -550,7 +560,7 @@ export default function Home() {
               className="inline-block"
             >
               <Image
-                src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+                src={`/ads/${adIndexes[2] || 3}.gif`}
                 alt="Download Now"
                 width={250}
                 height={83}
