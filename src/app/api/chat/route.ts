@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       ],
       model: "llama-3.1-8b-instant",
       temperature: dementiaMode ? 1.95 : 1,
-      max_tokens: 500
+      max_tokens: dementiaMode ? 200 : 300
     });
 
     return NextResponse.json({ 

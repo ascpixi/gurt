@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './ChatAssistant.module.css';
+import Image from 'next/image';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -52,17 +53,28 @@ export default function ChatAssistant() {
       
       <div className={`${styles.chatWindow} ${isOpen ? styles.open : ''}`}>
         <div className={styles.chatHeader}>
-          <h3>File Converter Assistant</h3>
+          <h3>
+            <Image 
+              src="/tech-support-avatar.png" 
+              alt="Tech Support" 
+              width={32}
+              height={32}
+              className={styles.avatar}
+            />
+            File Converter Assistant
+          </h3>
           <div className={styles.headerControls}>
-            <label className={styles.switch}>
-              <input 
-                type="checkbox" 
-                checked={dementiaMode}
-                onChange={(e) => setDementiaMode(e.target.checked)}
-              />
-              <span className={styles.slider}></span>
+            <div className={styles.switchContainer}>
+              <label className={styles.switch}>
+                <input 
+                  type="checkbox" 
+                  checked={dementiaMode}
+                  onChange={(e) => setDementiaMode(e.target.checked)}
+                />
+                <span className={styles.slider}></span>
+              </label>
               <span className={styles.switchLabel}>Dementia Mode</span>
-            </label>
+            </div>
             <button className={styles.closeButton} onClick={() => setIsOpen(false)}>×</button>
           </div>
         </div>
