@@ -38,8 +38,10 @@ export default function Home() {
     // Only show modal on first visit or when confirmations < 3
     if (typeof window !== 'undefined') {
       const storedCount = localStorage.getItem('adBlockerConfirmations');
-      if ((!storedCount && adBlockerConfirmations < 3) || (storedCount && parseInt(storedCount, 10) < 3)) {
+      if ((!storedCount && adBlockerConfirmations < 2) || (storedCount && parseInt(storedCount, 10) < 2)) {
         setShowAdBlockerModal(true);
+      } else {
+       localStorage.setItem('adBlockerConfirmations', '0');
       }
     }
   }, [adBlockerConfirmations]);
@@ -90,24 +92,11 @@ export default function Home() {
     }
   };
 
-  const handleAdBlockerConfirm = () => {
-    const newCount = adBlockerConfirmations + 1;
-    setAdBlockerConfirmations(newCount);
-    localStorage.setItem('adBlockerConfirmations', newCount.toString());
-    
-    if (newCount < 3) {
-      // If less than 3 confirmations, show the modal again after a brief delay
-      setTimeout(() => {
-        setShowAdBlockerModal(true);
-      }, 100);
-    } else {
-      // After 3 confirmations, hide the modal
-      setShowAdBlockerModal(false);
-    }
-  };
-
   const handleRefresh = () => {
-    handleAdBlockerConfirm();
+    const newCount = parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10) + 1;
+    // setAdBlockerConfirmations(newCount);
+    localStorage.setItem('adBlockerConfirmations', (newCount % 3).toString());
+    debugger;
     // Force a hard refresh to ensure the page reloads completely
     window.location.href = window.location.href;
   };
