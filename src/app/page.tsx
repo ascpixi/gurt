@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`min-h-screen p-8 bg-white ${showCookieConsent && !showPreferences ? 'opacity-50' : ''}`}>
+    <main className="min-h-screen p-8 bg-white">
       {/* Cookie Consent */}
       {showCookieConsent && !showPreferences && (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 z-50">
@@ -268,7 +268,10 @@ export default function Home() {
       )}
 
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">GURT Image Converter</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center">GURT Image Converter</h1>
+        <p className="text-gray-600 text-center mb-8">
+          An image file converter is a powerful tool that enables users to transform digital images from one format to another, ensuring compatibility across different platforms and applications. Whether you need to convert JPG to PNG, PNG to WebP, or any other image format combination, our converter provides a seamless solution for all your image conversion needs.
+        </p>
         
         <div className="grid grid-cols-12 gap-4">
           {/* Left Ad Column */}
@@ -359,6 +362,29 @@ export default function Home() {
             height={90}
             className="object-cover"
           />
+        </div>
+
+        {/* SEO Slop */}
+        <div className="mt-12 text-gray-600">
+          <h2 className="text-2xl font-bold mb-4">Image Conversion: A Comprehensive Guide</h2>
+          <p className="mb-4">
+            In today's digital landscape, image conversion has become an essential tool for professionals and casual users alike. Whether you're a graphic designer, web developer, or simply someone who needs to share images across different platforms, understanding image formats and conversion processes is crucial. Our image converter supports a wide range of formats, including JPG, PNG, and WebP, ensuring that your images maintain optimal quality while meeting specific requirements.
+          </p>
+          <p className="mb-4">
+            The process of image conversion involves transforming the digital representation of an image from one format to another. This transformation can affect various aspects of the image, including compression, transparency, and color depth. Our converter is designed to handle these transformations efficiently, preserving image quality while ensuring compatibility with different devices and applications.
+          </p>
+          <p className="mb-4">
+            When choosing an image format, it's important to consider factors such as file size, quality, and intended use. JPG is ideal for photographs and complex images, offering good compression while maintaining quality. PNG is perfect for images requiring transparency or lossless compression. WebP provides modern compression techniques that can significantly reduce file size while maintaining visual quality.
+          </p>
+          <p className="mb-4">
+            Our image converter is built with user experience in mind, offering a simple and intuitive interface that makes the conversion process straightforward. Whether you need to convert a single image or multiple files, our tool provides reliable and efficient conversion services. The converted images maintain their original quality while being optimized for their new format.
+          </p>
+          <p className="mb-4">
+            In addition to format conversion, our tool also ensures that your images are properly optimized for web use. This includes appropriate compression levels, color space management, and metadata handling. These optimizations help improve website performance and user experience while maintaining image quality.
+          </p>
+          <p>
+            Whether you're working on a personal project or managing a professional website, our image converter provides the tools you need to handle all your image conversion requirements. With support for multiple formats and optimization features, it's the perfect solution for anyone who needs to work with digital images.
+          </p>
         </div>
       </div>
     </main>
