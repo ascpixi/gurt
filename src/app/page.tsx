@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
@@ -17,31 +17,40 @@ export default function Home() {
   const [functionalEnabled, setFunctionalEnabled] = useState(false);
   const [targetingEnabled, setTargetingEnabled] = useState(false);
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Add artificial loading delay
   useEffect(() => {
-    // Check if this is the first visit
-    const isFirstVisit = !sessionStorage.getItem('visited');
-    if (isFirstVisit) {
-      sessionStorage.setItem('visited', 'true');
-      setShowAdBlockerModal(true);
-    } else {
-      // 50% chance to show the modal on subsequent visits
-      if (Math.random() < 0.5) {
-        setShowAdBlockerModal(true);
-      }
-    }
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
+  // Add artificial delay for cookie consent
+  useEffect(() => {
     const timer = setTimeout(() => {
       setShowCookieConsent(true);
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-      setDownloadUrl(null);
-      setShowPremiumPopup(true);
+      const file = e.target.files[0];
+      
+      // Check file size (1MB limit)
+      if (file.size > 1024 * 1024) {
+        alert('File size exceeds 1MB limit. Please choose a smaller file.');
+        return;
+      }
+
+      // Add artificial delay before showing premium popup
+      setTimeout(() => {
+        setSelectedFile(file);
+        setDownloadUrl(null);
+        setShowPremiumPopup(true);
+      }, 1000);
     }
   };
 
@@ -54,7 +63,8 @@ export default function Home() {
     formData.append('targetFormat', targetFormat);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Add longer artificial delay for conversion
+      await new Promise(resolve => setTimeout(resolve, 5000));
       
       const response = await fetch('/api/convert', {
         method: 'POST',
@@ -77,6 +87,17 @@ export default function Home() {
   const handleRefresh = () => {
     window.location.reload();
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your experience...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen p-8 bg-white">

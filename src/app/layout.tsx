@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Unnecessary library CDNs */}
+        <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" strategy="beforeInteractive" />
+      </head>
       <body className={inter.className}>
         <nav className="bg-white shadow-md">
           <div className="max-w-6xl mx-auto px-4">
