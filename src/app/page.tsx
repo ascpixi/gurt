@@ -74,14 +74,14 @@ export default function Home() {
   };
 
   const handleRefresh = () => {
-    router.refresh();
+    window.location.reload();
   };
 
   return (
     <main className="min-h-screen p-8 bg-white">
       {/* AdBlocker Modal */}
       {showAdBlockerModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-md">
             <h2 className="text-2xl font-bold mb-4 text-black">Please Disable Your AdBlocker</h2>
             <p className="mb-4 text-gray-800">
@@ -284,10 +284,10 @@ export default function Home() {
 
       {/* Premium Plan Popup */}
       {showPremiumPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Upgrade to Premium!</h2>
-            <p className="mb-4">Get unlimited conversions, no ads, and faster processing for just $9.99/month!</p>
+            <h2 className="text-2xl font-bold mb-4 text-black">Upgrade to Premium!</h2>
+            <p className="mb-4 text-black">Get unlimited conversions, no ads, and faster processing for just $9.99/month!</p>
             <div className="flex gap-4">
               <button 
                 className="bg-blue-500 text-white px-4 py-2 rounded"
