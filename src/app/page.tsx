@@ -18,12 +18,29 @@ export default function Home() {
   const [functionalEnabled, setFunctionalEnabled] = useState(false);
   const [targetingEnabled, setTargetingEnabled] = useState(false);
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
+  const [adBlockerConfirmations, setAdBlockerConfirmations] = useState(() => {
+    // Initialize from localStorage or default to 0
+    if (typeof window !== 'undefined') {
+      return parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
+    }
+    return 0;
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCookieConsent(true);
     }, 3000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Only show modal on first visit or when confirmations < 3
+    if (typeof window !== 'undefined') {
+      const storedCount = localStorage.getItem('adBlockerConfirmations');
+      if ((!storedCount && adBlockerConfirmations < 3) || (storedCount && parseInt(storedCount, 10) < 3)) {
+        setShowAdBlockerModal(true);
+      }
+    }
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +89,21 @@ export default function Home() {
     }
   };
 
+  const handleAdBlockerConfirm = () => {
+    if (adBlockerConfirmations < 2) {
+      // If less than 2 confirmations, show the modal again
+      const newCount = adBlockerConfirmations + 1;
+      setAdBlockerConfirmations(newCount);
+      localStorage.setItem('adBlockerConfirmations', newCount.toString());
+      setShowAdBlockerModal(true);
+    } else {
+      // After 3 confirmations, hide the modal
+      setShowAdBlockerModal(false);
+    }
+  };
+
   const handleRefresh = () => {
+    handleAdBlockerConfirm();
     window.location.reload();
   };
 
