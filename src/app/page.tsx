@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetFormat, setTargetFormat] = useState('jpg');
   const [isConverting, setIsConverting] = useState(false);
@@ -13,8 +15,21 @@ export default function Home() {
   const [showPreferences, setShowPreferences] = useState(false);
   const [functionalEnabled, setFunctionalEnabled] = useState(false);
   const [targetingEnabled, setTargetingEnabled] = useState(false);
+  const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
 
   useEffect(() => {
+    // Check if this is the first visit
+    const isFirstVisit = !sessionStorage.getItem('visited');
+    if (isFirstVisit) {
+      sessionStorage.setItem('visited', 'true');
+      setShowAdBlockerModal(true);
+    } else {
+      // 50% chance to show the modal on subsequent visits
+      if (Math.random() < 0.5) {
+        setShowAdBlockerModal(true);
+      }
+    }
+
     const timer = setTimeout(() => {
       setShowCookieConsent(true);
     }, 2000);
@@ -58,8 +73,32 @@ export default function Home() {
     }
   };
 
+  const handleRefresh = () => {
+    router.refresh();
+  };
+
   return (
     <main className="min-h-screen p-8 bg-white">
+      {/* AdBlocker Modal */}
+      {showAdBlockerModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg max-w-md">
+            <h2 className="text-2xl font-bold mb-4 text-black">Please Disable Your AdBlocker</h2>
+            <p className="mb-4 text-gray-800">
+              We've detected that you're using an ad blocker. Our free service relies on advertising revenue to operate. Please disable your ad blocker to continue using our image converter.
+            </p>
+            <div className="flex justify-end">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+                onClick={handleRefresh}
+              >
+                I Disabled It, Refresh
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Cookie Consent */}
       {showCookieConsent && !showPreferences && (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 z-50">
@@ -268,7 +307,7 @@ export default function Home() {
       )}
 
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4 text-center">GURT Image Converter</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center text-black">GURT Image Converter</h1>
         <p className="text-gray-600 text-center mb-8">
           An image file converter is a powerful tool that enables users to transform digital images from one format to another, ensuring compatibility across different platforms and applications. Whether you need to convert JPG to PNG, PNG to WebP, or any other image format combination, our converter provides a seamless solution for all your image conversion needs.
         </p>
@@ -309,7 +348,7 @@ export default function Home() {
                 <select
                   value={targetFormat}
                   onChange={(e) => setTargetFormat(e.target.value)}
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded text-black"
                 >
                   <option value="jpg">JPG</option>
                   <option value="png">PNG</option>
