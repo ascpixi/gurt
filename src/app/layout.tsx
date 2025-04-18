@@ -1,15 +1,6 @@
-"use client";
-
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import Script from "next/script";
-import ChatAssistant from "@/components/ChatAssistant";
-import AIIntroductionModal from '../components/AIIntroductionModal';
-import { useState, useEffect } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
   title: "GURT - Free Online Image & Video Converter",
@@ -71,58 +62,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
-  const [adBlockerConfirmations, setAdBlockerConfirmations] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
-    }
-    return 0;
-  });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedCount = localStorage.getItem('adBlockerConfirmations');
-      if ((!storedCount && adBlockerConfirmations < 2) || (storedCount && parseInt(storedCount, 10) < 2)) {
-        setShowAdBlockerModal(true);
-      }
-    }
-  }, [adBlockerConfirmations]);
-
-  return (
-    <html lang="en">
-      <head>
-        {/* Unnecessary library CDNs */}
-        <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/lodash@4.1.0/lodash.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" strategy="beforeInteractive" />
-      </head>
-      <body className={inter.className}>
-        <nav className="bg-white shadow-md">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex space-x-8">
-                <Link href="/" className="text-black hover:text-gray-600">
-                  Home
-                </Link>
-                <Link href="/premium" className="text-black hover:text-gray-600">
-                  Premium
-                </Link>
-                <Link href="/faq" className="text-black hover:text-gray-600">
-                  FAQ
-                </Link>
-                <Link href="/blog" className="text-black hover:text-gray-600">
-                  Blog
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
-        {children}
-        <ChatAssistant />
-        <AIIntroductionModal showAdBlockerModal={showAdBlockerModal} />
-      </body>
-    </html>
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }
