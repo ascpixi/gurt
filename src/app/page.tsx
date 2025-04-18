@@ -115,7 +115,7 @@ export default function Home() {
     <main className="min-h-screen p-8 bg-white">
       {showGitHubWarning && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg max-w-2xl">
+          <div className="bg-white p-8 rounded-lg max-w-2xl scale-[75%]">
             <h2 className="text-3xl font-bold mb-4 text-red-600">⚠️ LEGAL WARNING ⚠️</h2>
             <div className="space-y-4 text-gray-800">
               <p className="text-lg font-semibold">ATTENTION: PROPRIETARY CODE ACCESS WARNING</p>
