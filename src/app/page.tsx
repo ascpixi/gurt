@@ -19,7 +19,6 @@ export default function Home() {
   const [targetingEnabled, setTargetingEnabled] = useState(false);
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
 
-  // Add artificial delay for cookie consent
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCookieConsent(true);
@@ -31,13 +30,11 @@ export default function Home() {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       
-      // Check file size (1MB limit)
       if (file.size > 1024 * 1024) {
         alert('File size exceeds 1MB limit. Please choose a smaller file. For larger files, consider upgrading to our Premium plan.');
         return;
       }
 
-      // Add artificial delay before showing premium popup
       setTimeout(() => {
         setSelectedFile(file);
         setDownloadUrl(null);
@@ -55,7 +52,6 @@ export default function Home() {
     formData.append('targetFormat', targetFormat);
 
     try {
-      // Add longer artificial delay for conversion
       await new Promise(resolve => setTimeout(resolve, 5000));
       
       const response = await fetch('/api/convert', {
@@ -82,7 +78,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-8 bg-white">
-      {/* AdBlocker Modal */}
       {showAdBlockerModal && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-md">
@@ -102,7 +97,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Cookie Consent */}
       {showCookieConsent && !showPreferences && (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 z-50">
           <div className="max-w-4xl mx-auto">
@@ -137,7 +131,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Cookie Preferences Modal */}
       {showPreferences && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto">
@@ -285,7 +278,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Premium Plan Popup */}
       {showPremiumPopup && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-md">
@@ -317,20 +309,20 @@ export default function Home() {
         </p>
         
         <div className="grid grid-cols-12 gap-4">
-          {/* Left Ad Column */}
           <div className="col-span-2">
-            <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
-          <Image
-                src="/ads/left-ad.jpg"
-                alt="Advertisement"
-                width={160}
-                height={600}
-                className="object-cover"
-              />
-            </div>
+            <a href="https://steak.com" target="_blank" rel="noopener noreferrer" className="block">
+              <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
+                <Image
+                  src="/ads/left-ad.jpg"
+                  alt="Advertisement"
+                  width={160}
+                  height={600}
+                  className="object-cover"
+                />
+              </div>
+            </a>
           </div>
 
-          {/* Main Content */}
           <div className="col-span-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <div className="mb-4">
@@ -384,38 +376,40 @@ export default function Home() {
               )}
             </div>
 
-            {/* Video Converter Section */}
             <div className="mt-8">
               <VideoConverter />
             </div>
           </div>
 
-          {/* Right Ad Column */}
           <div className="col-span-2">
-            <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
-          <Image
-                src="/ads/right-ad.jpg"
-                alt="Advertisement"
-                width={160}
-                height={600}
-                className="object-cover"
-              />
-            </div>
+            <a href="https://twitter.com/ascpixi" target="_blank" rel="noopener noreferrer" className="block">
+              <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
+                <Image
+                  src="/ads/right-ad.jpg"
+                  alt="Advertisement"
+                  width={160}
+                  height={600}
+                  className="object-cover"
+                />
+              </div>
+            </a>
           </div>
         </div>
 
-        {/* Bottom Ad Banner */}
-        <div className="mt-8 bg-gray-200 p-4 rounded-lg h-[100px] flex items-center justify-center">
-          <Image
-            src="/ads/bottom-ad.jpg"
-            alt="Advertisement"
-            width={728}
-            height={90}
-            className="object-cover"
-          />
+        <div className="mt-8">
+          <a href="https://youtube.com/shorts/SQ-LNKmmnkQ" target="_blank" rel="noopener noreferrer" className="block">
+            <div className="bg-gray-200 p-4 rounded-lg h-[100px] flex items-center justify-center">
+              <Image
+                src="/ads/bottom-ad.jpg"
+                alt="Advertisement"
+                width={728}
+                height={90}
+                className="object-cover"
+              />
+            </div>
+          </a>
         </div>
 
-        {/* SEO Slop */}
         <div className="mt-12 text-gray-600">
           <h2 className="text-2xl font-bold mb-4">Image Conversion: A Comprehensive Guide</h2>
           <p className="mb-4">

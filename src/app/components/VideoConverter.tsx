@@ -47,10 +47,8 @@ export default function VideoConverter() {
       await loadFFmpeg();
       const ffmpeg = ffmpegRef.current!;
 
-      // Write the file to FFmpeg's virtual filesystem
       await ffmpeg.writeFile('input.mp4', await fetchFile(file));
 
-      // Convert to MP4 with ultrafast preset and 700kb/s bitrate
       await ffmpeg.exec([
         '-i', 'input.mp4',
         '-c:v', 'libx264',
@@ -63,7 +61,6 @@ export default function VideoConverter() {
         'output.mp4'
       ]);
 
-      // Read the converted file
       const data = await ffmpeg.readFile('output.mp4');
       const blob = new Blob([data], { type: 'video/mp4' });
       const url = URL.createObjectURL(blob);
@@ -135,7 +132,6 @@ export default function VideoConverter() {
         )}
       </div>
 
-      {/* Ad Modal */}
       {showAd && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="relative">
@@ -146,7 +142,7 @@ export default function VideoConverter() {
               ×
             </button>
             <a
-              href="https://x.com/notnullptr/status/1912935251094946051"
+              href="https://x.com/ascpixi/status/1913038648984981738"
               target="_blank"
               rel="noopener noreferrer"
               className="block"
