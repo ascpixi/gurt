@@ -15,7 +15,6 @@ export default function Home() {
   const [targetingEnabled, setTargetingEnabled] = useState(false);
 
   useEffect(() => {
-    // Simulate artificial lag
     const timer = setTimeout(() => {
       setShowCookieConsent(true);
     }, 2000);
@@ -39,7 +38,6 @@ export default function Home() {
     formData.append('targetFormat', targetFormat);
 
     try {
-      // Simulate artificial lag
       await new Promise(resolve => setTimeout(resolve, 3000));
       
       const response = await fetch('/api/convert', {
@@ -61,14 +59,17 @@ export default function Home() {
   };
 
   return (
-    <main className={`min-h-screen p-8 bg-white ${showCookieConsent ? 'opacity-50' : ''}`}>
+    <main className={`min-h-screen p-8 bg-white ${showCookieConsent && !showPreferences ? 'opacity-50' : ''}`}>
       {/* Cookie Consent */}
-      {showCookieConsent && (
+      {showCookieConsent && !showPreferences && (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 z-50">
           <div className="max-w-4xl mx-auto">
             <h3 className="text-lg font-bold mb-2">Why we use cookies and other tracking technologies?</h3>
             <p className="text-sm mb-4">
               Our site enables script (e.g. cookies) that is able to read, store, and write information on your browser and in your device. The information processed by this script includes data relating to you which may include personal identifiers (e.g. IP address and session details) and browsing activity. We use this information for various purposes - e.g. to deliver content, maintain security, enable user choice, improve our sites, and for marketing purposes. You can reject all non-essential processing by choosing to accept only necessary cookies. To personalize your choice and learn more <a href="#" className="text-blue-400 hover:underline" onClick={(e) => { e.preventDefault(); setShowPreferences(true); }}>click here to adjust your preferences</a>.
+            </p>
+            <p className="text-sm mb-4 text-yellow-300">
+              Note: We work with over 200 partners who may process your data. For a complete list, please review your preferences.
             </p>
             <div className="flex gap-4">
               <button 
@@ -98,32 +99,47 @@ export default function Home() {
       {showPreferences && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold mb-4">How can you manage your preferences?</h2>
-            <p className="mb-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">How can you manage your preferences?</h2>
+            <p className="mb-6 text-gray-800">
               Managing your cookie preferences is a multi-step process that requires careful consideration of your privacy needs. First, you must understand the different types of cookies and their purposes. Then, you need to evaluate which vendors you trust with your data. After that, you should consider the implications of enabling or disabling each category of cookies. Finally, you must make an informed decision about your privacy settings. This process should be repeated periodically as your preferences and the site's cookie usage may change over time.
             </p>
 
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Strictly Necessary Cookies</h3>
-              <p className="mb-4">
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Strictly Necessary Cookies</h3>
+              <p className="mb-4 text-gray-800">
                 These cookies are essential for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website. The website cannot function properly without these cookies.
               </p>
-              <div className="bg-gray-100 p-4 rounded">
-                <h4 className="font-bold mb-2">Vendors:</h4>
-                <ul className="list-disc pl-4">
-                  <li>Cloudflare - Security and performance optimization</li>
-                  <li>Akamai - Content delivery and security</li>
-                  <li>Fastly - Edge computing and security</li>
-                  <li>Imperva - Web application security</li>
-                  <li>F5 Networks - Application delivery and security</li>
+              <div className="bg-gray-100 p-4 rounded max-h-48 overflow-y-auto">
+                <h4 className="font-bold mb-2 text-gray-800">Vendors:</h4>
+                <ul className="list-disc pl-4 text-gray-800">
+                  <li>Cloudflare</li>
+                  <li>Akamai</li>
+                  <li>Fastly</li>
+                  <li>Imperva</li>
+                  <li>F5 Networks</li>
+                  <li>Barracuda Networks</li>
+                  <li>Palo Alto Networks</li>
+                  <li>Fortinet</li>
+                  <li>Check Point</li>
+                  <li>Juniper Networks</li>
+                  <li>Citrix</li>
+                  <li>Radware</li>
+                  <li>Netskope</li>
+                  <li>Zscaler</li>
+                  <li>CloudPassage</li>
+                  <li>Alert Logic</li>
+                  <li>Qualys</li>
+                  <li>Tenable</li>
+                  <li>Rapid7</li>
+                  <li>Sophos</li>
                 </ul>
               </div>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Functional Cookies</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Functional Cookies</h3>
               <div className="flex items-center justify-between mb-4">
-                <p>
+                <p className="text-gray-800">
                   These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third-party providers whose services we have added to our pages.
                 </p>
                 <label className="flex items-center cursor-pointer">
@@ -133,25 +149,40 @@ export default function Home() {
                     onChange={(e) => setFunctionalEnabled(e.target.checked)}
                     className="mr-2"
                   />
-                  <span>Enable Functional Cookies</span>
+                  <span className="text-gray-800">Enable Functional Cookies</span>
                 </label>
               </div>
-              <div className="bg-gray-100 p-4 rounded">
-                <h4 className="font-bold mb-2">Vendors:</h4>
-                <ul className="list-disc pl-4">
-                  <li>Google Analytics - Website analytics</li>
-                  <li>Hotjar - User behavior analytics</li>
-                  <li>Mixpanel - Product analytics</li>
-                  <li>Amplitude - Digital analytics</li>
-                  <li>Segment - Customer data platform</li>
+              <div className="bg-gray-100 p-4 rounded max-h-48 overflow-y-auto">
+                <h4 className="font-bold mb-2 text-gray-800">Vendors:</h4>
+                <ul className="list-disc pl-4 text-gray-800">
+                  <li>Google Analytics</li>
+                  <li>Hotjar</li>
+                  <li>Mixpanel</li>
+                  <li>Amplitude</li>
+                  <li>Segment</li>
+                  <li>Heap Analytics</li>
+                  <li>Pendo</li>
+                  <li>FullStory</li>
+                  <li>LogRocket</li>
+                  <li>Smartlook</li>
+                  <li>Mouseflow</li>
+                  <li>Crazy Egg</li>
+                  <li>Lucky Orange</li>
+                  <li>Inspectlet</li>
+                  <li>SessionCam</li>
+                  <li>Contentsquare</li>
+                  <li>Quantum Metric</li>
+                  <li>Glassbox</li>
+                  <li>Decibel</li>
+                  <li>UserTesting</li>
                 </ul>
               </div>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Targeting Cookies</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Targeting Cookies</h3>
               <div className="flex items-center justify-between mb-4">
-                <p>
+                <p className="text-gray-800">
                   These cookies are set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites.
                 </p>
                 <label className="flex items-center cursor-pointer">
@@ -161,19 +192,32 @@ export default function Home() {
                     onChange={(e) => setTargetingEnabled(e.target.checked)}
                     className="mr-2"
                   />
-                  <span>Enable Targeting Cookies</span>
+                  <span className="text-gray-800">Enable Targeting Cookies</span>
                 </label>
               </div>
-              <div className="bg-gray-100 p-4 rounded">
-                <h4 className="font-bold mb-2">Vendors:</h4>
-                <ul className="list-disc pl-4">
-                  <li>Google Ads - Advertising</li>
-                  <li>Facebook Pixel - Social media advertising</li>
-                  <li>LinkedIn Insight Tag - Professional network advertising</li>
-                  <li>Twitter Pixel - Social media advertising</li>
-                  <li>Pinterest Tag - Social media advertising</li>
-                  <li>Microsoft Advertising - Search and display advertising</li>
-                  <li>Amazon Advertising - E-commerce advertising</li>
+              <div className="bg-gray-100 p-4 rounded max-h-48 overflow-y-auto">
+                <h4 className="font-bold mb-2 text-gray-800">Vendors:</h4>
+                <ul className="list-disc pl-4 text-gray-800">
+                  <li>Google Ads</li>
+                  <li>Facebook Pixel</li>
+                  <li>LinkedIn Insight Tag</li>
+                  <li>Twitter Pixel</li>
+                  <li>Pinterest Tag</li>
+                  <li>Microsoft Advertising</li>
+                  <li>Amazon Advertising</li>
+                  <li>Taboola</li>
+                  <li>Outbrain</li>
+                  <li>Media.net</li>
+                  <li>AdRoll</li>
+                  <li>Criteo</li>
+                  <li>Quantcast</li>
+                  <li>DoubleVerify</li>
+                  <li>Integral Ad Science</li>
+                  <li>Moat Analytics</li>
+                  <li>Nielsen</li>
+                  <li>Comscore</li>
+                  <li>Kantar</li>
+                  <li>Ipsos</li>
                 </ul>
               </div>
             </div>
