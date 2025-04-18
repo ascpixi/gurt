@@ -55,6 +55,11 @@ export const metadata: Metadata = {
     google: "google-site-verification-code",
   },
   category: "technology",
+  icons: {
+    icon: [
+      { url: '/favicon.png', type: 'image/png', sizes: '32x32' }
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -68,10 +73,9 @@ export default function RootLayout({
         {/* Unnecessary library CDNs */}
         <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/lodash@4.1.0/lodash.min.js" strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js" strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" strategy="beforeInteractive" />
-        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
       <body className={inter.className}>
         <nav className="bg-white shadow-md">
