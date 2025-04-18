@@ -41,7 +41,7 @@ export default function Home() {
         setShowAdBlockerModal(true);
       }
     }
-  }, []);
+  }, [adBlockerConfirmations]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -90,12 +90,15 @@ export default function Home() {
   };
 
   const handleAdBlockerConfirm = () => {
-    if (adBlockerConfirmations < 2) {
-      // If less than 2 confirmations, show the modal again
-      const newCount = adBlockerConfirmations + 1;
-      setAdBlockerConfirmations(newCount);
-      localStorage.setItem('adBlockerConfirmations', newCount.toString());
-      setShowAdBlockerModal(true);
+    const newCount = adBlockerConfirmations + 1;
+    setAdBlockerConfirmations(newCount);
+    localStorage.setItem('adBlockerConfirmations', newCount.toString());
+    
+    if (newCount < 3) {
+      // If less than 3 confirmations, show the modal again after a brief delay
+      setTimeout(() => {
+        setShowAdBlockerModal(true);
+      }, 100);
     } else {
       // After 3 confirmations, hide the modal
       setShowAdBlockerModal(false);
@@ -104,7 +107,8 @@ export default function Home() {
 
   const handleRefresh = () => {
     handleAdBlockerConfirm();
-    window.location.reload();
+    // Force a hard refresh to ensure the page reloads completely
+    window.location.href = window.location.href;
   };
 
   return (
