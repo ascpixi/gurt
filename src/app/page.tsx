@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import VideoConverter from './components/VideoConverter';
 
 export default function Home() {
   const router = useRouter();
@@ -382,6 +383,11 @@ export default function Home() {
                 </div>
               )}
             </div>
+
+            {/* Video Converter Section */}
+            <div className="mt-8">
+              <VideoConverter />
+            </div>
           </div>
 
           {/* Right Ad Column */}
@@ -431,7 +437,7 @@ export default function Home() {
             Whether you're working on a personal project or managing a professional website, our image converter provides the tools you need to handle all your image conversion requirements. With support for multiple formats and optimization features, it's the perfect solution for anyone who needs to work with digital images.
           </p>
         </div>
-    </div>
+      </div>
     </main>
   );
 }
