@@ -148,7 +148,7 @@ export default function VideoConverter() {
               className="block"
             >
               <div className="w-96 h-96 bg-white rounded-lg overflow-hidden">
-                <Image
+                <img
                   src="/ads/conversion-ad.jpg"
                   alt="Advertisement"
                   width={384}

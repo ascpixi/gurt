@@ -483,7 +483,7 @@ export default function Home() {
         <div className="mt-8">
           <a href="https://youtube.com/shorts/SQ-LNKmmnkQ" target="_blank" rel="noopener noreferrer" className="block">
             <div className="bg-gray-200 p-4 rounded-lg h-[100px] flex items-center justify-center">
-              <Image
+              <img
                 src="/ads/bottom-ad.jpg"
                 alt="Advertisement"
                 width={728}
