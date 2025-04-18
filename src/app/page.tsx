@@ -17,15 +17,6 @@ export default function Home() {
   const [functionalEnabled, setFunctionalEnabled] = useState(false);
   const [targetingEnabled, setTargetingEnabled] = useState(false);
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Add artificial loading delay
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Add artificial delay for cookie consent
   useEffect(() => {
@@ -41,7 +32,7 @@ export default function Home() {
       
       // Check file size (1MB limit)
       if (file.size > 1024 * 1024) {
-        alert('File size exceeds 1MB limit. Please choose a smaller file.');
+        alert('File size exceeds 1MB limit. Please choose a smaller file. For larger files, consider upgrading to our Premium plan.');
         return;
       }
 
@@ -87,17 +78,6 @@ export default function Home() {
   const handleRefresh = () => {
     window.location.reload();
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your experience...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <main className="min-h-screen p-8 bg-white">
@@ -354,8 +334,11 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Select Image
+                  Select Image (Max 1MB)
                 </label>
+                <p className="text-sm text-red-600 mb-2">
+                  Free users are limited to 1MB file size. Upgrade to Premium for larger files.
+                </p>
                 <input
                   type="file"
                   accept="image/*"
