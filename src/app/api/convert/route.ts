@@ -22,24 +22,27 @@ export async function POST(request: Request) {
     const width = metadata.width || 0;
     const height = metadata.height || 0;
 
-    // Calculate watermark position (centered)
-    const watermarkText = 'GURT';
-    const fontSize = Math.min(width, height) * 0.4; // 40% of the smaller dimension
-    const padding = fontSize * 0.5;
-
-    // Create the watermark overlay
+    // Create a simple watermark using a semi-transparent overlay
+    const watermarkSize = Math.min(width, height) * 0.4; // 40% of the smaller dimension
     const watermarkBuffer = Buffer.from(`
-      <svg width="${width}" height="${height}">
+      <svg width="${watermarkSize}" height="${watermarkSize}">
+        <rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill="rgba(0, 0, 0, 0.5)"
+        />
         <text
-          x="${width / 2}"
-          y="${height / 2}"
-          font-family="Arial"
-          font-size="${fontSize}"
-          fill="rgba(255, 255, 255, 0.7)"
+          x="50%"
+          y="50%"
+          font-family="sans-serif"
+          font-size="${watermarkSize * 0.2}"
+          fill="white"
           text-anchor="middle"
           dominant-baseline="middle"
           font-weight="bold"
-        >${watermarkText}</text>
+        >GURT</text>
       </svg>
     `);
 
@@ -47,19 +50,34 @@ export async function POST(request: Request) {
       case 'jpg':
       case 'jpeg':
         convertedImage = await sharp(buffer)
-          .composite([{ input: watermarkBuffer, blend: 'over' }])
+          .composite([{
+            input: watermarkBuffer,
+            top: Math.floor((height - watermarkSize) / 2),
+            left: Math.floor((width - watermarkSize) / 2),
+            blend: 'over'
+          }])
           .jpeg({ quality: 40 })
           .toBuffer();
         break;
       case 'png':
         convertedImage = await sharp(buffer)
-          .composite([{ input: watermarkBuffer, blend: 'over' }])
+          .composite([{
+            input: watermarkBuffer,
+            top: Math.floor((height - watermarkSize) / 2),
+            left: Math.floor((width - watermarkSize) / 2),
+            blend: 'over'
+          }])
           .png()
           .toBuffer();
         break;
       case 'webp':
         convertedImage = await sharp(buffer)
-          .composite([{ input: watermarkBuffer, blend: 'over' }])
+          .composite([{
+            input: watermarkBuffer,
+            top: Math.floor((height - watermarkSize) / 2),
+            left: Math.floor((width - watermarkSize) / 2),
+            blend: 'over'
+          }])
           .webp({ quality: 40 })
           .toBuffer();
         break;
