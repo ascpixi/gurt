@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
@@ -295,12 +296,13 @@ export default function Home() {
               >
                 Maybe Later
               </button>
-              <button 
-                className="bg-green-500 text-white px-4 py-2 rounded"
+              <Link 
+                href="/premium"
+                className="bg-green-500 text-white px-4 py-2 rounded text-center"
                 onClick={() => setShowPremiumPopup(false)}
               >
                 Upgrade Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>
