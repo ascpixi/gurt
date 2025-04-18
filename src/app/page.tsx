@@ -393,7 +393,7 @@ export default function Home() {
         </p>
         
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-2">
+          <div className="col-span-2 hidden md:block">
             <a href="https://steak.com" target="_blank" rel="noopener noreferrer" className="block">
               <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
                 <Image
@@ -407,7 +407,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="col-span-8">
+          <div className="col-span-12 md:col-span-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -465,7 +465,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="col-span-2">
+          <div className="col-span-2 hidden md:block">
             <a href="https://twitter.com/ascpixi" target="_blank" rel="noopener noreferrer" className="block">
               <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
                 <Image
@@ -482,7 +482,7 @@ export default function Home() {
 
         <div className="mt-8">
           <a href="https://youtube.com/shorts/SQ-LNKmmnkQ" target="_blank" rel="noopener noreferrer" className="block">
-            <div className="bg-gray-200 p-4 rounded-lg h-[100px] flex items-center justify-center">
+            <div className="bg-gray-200 p-2 md:p-4 rounded-lg h-[100px] flex items-center justify-center">
               <img
                 src="/ads/bottom-ad.jpg"
                 alt="Advertisement"
