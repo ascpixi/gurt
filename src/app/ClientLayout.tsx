@@ -17,7 +17,9 @@ export default function ClientLayout({
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
   const [adBlockerConfirmations, setAdBlockerConfirmations] = useState(() => {
     if (typeof window !== 'undefined') {
-      return parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
+      const count = parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
+      console.log('Initial adBlockerConfirmations:', count);
+      return count;
     }
     return 0;
   });
@@ -25,9 +27,16 @@ export default function ClientLayout({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedCount = localStorage.getItem('adBlockerConfirmations');
-      if ((!storedCount && adBlockerConfirmations < 2) || (storedCount && parseInt(storedCount, 10) < 2)) {
-        setShowAdBlockerModal(true);
-      }
+      console.log('Current storedCount:', storedCount);
+      console.log('Current adBlockerConfirmations:', adBlockerConfirmations);
+      
+      // Show adblocker modal if confirmations are less than 2
+      const shouldShowAdBlocker = (!storedCount && adBlockerConfirmations < 2) || 
+                                (storedCount && parseInt(storedCount, 10) < 2);
+      console.log('Should show adblocker modal:', shouldShowAdBlocker);
+      
+      // Set to false if we should show the adblocker modal
+      setShowAdBlockerModal(!shouldShowAdBlocker);
     }
   }, [adBlockerConfirmations]);
 
