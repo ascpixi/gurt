@@ -319,7 +319,7 @@ export default function Home() {
           {/* Left Ad Column */}
           <div className="col-span-2">
             <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
-              <Image
+          <Image
                 src="/ads/left-ad.jpg"
                 alt="Advertisement"
                 width={160}
@@ -387,7 +387,7 @@ export default function Home() {
           {/* Right Ad Column */}
           <div className="col-span-2">
             <div className="bg-gray-200 p-4 rounded-lg h-[600px] flex items-center justify-center">
-              <Image
+          <Image
                 src="/ads/right-ad.jpg"
                 alt="Advertisement"
                 width={160}
@@ -431,7 +431,7 @@ export default function Home() {
             Whether you're working on a personal project or managing a professional website, our image converter provides the tools you need to handle all your image conversion requirements. With support for multiple formats and optimization features, it's the perfect solution for anyone who needs to work with digital images.
           </p>
         </div>
-      </div>
+    </div>
     </main>
   );
 }
