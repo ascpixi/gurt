@@ -1,1 +1,1 @@
-THIS IS PROPRITERAY SOFTWARE PLEASE DO NOT LOOK.
+THIS IS PROPRITERAY SOFTWARE PLEASE DO NOT LOOK. [This](https://x.com/notnullptr/status/1912935251094946051) person give original idea all code original
