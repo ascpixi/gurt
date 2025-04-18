@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
 import ChatAssistant from "@/components/ChatAssistant";
+import AIIntroductionModal from '../components/AIIntroductionModal';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -100,6 +101,7 @@ export default function RootLayout({
         </nav>
         {children}
         <ChatAssistant />
+        <AIIntroductionModal />
       </body>
     </html>
   );
