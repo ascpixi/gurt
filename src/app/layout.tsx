@@ -31,12 +31,19 @@ export const metadata: Metadata = {
     title: "GURT - Free Online Image & Video Converter",
     description: "Convert images and videos between different formats instantly. Free, secure, and all processing done locally in your browser.",
     siteName: "GURT Converter",
+    images: [{
+      url: '/Untitled-5.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'GURT Image and Video Converter',
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: "GURT - Free Online Image & Video Converter",
     description: "Convert images and videos between different formats instantly. Free, secure, and all processing done locally in your browser.",
     creator: "@gurt",
+    images: ['/Untitled-5.jpg'],
   },
   viewport: {
     width: "device-width",
