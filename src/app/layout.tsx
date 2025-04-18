@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -5,6 +7,7 @@ import Link from "next/link";
 import Script from "next/script";
 import ChatAssistant from "@/components/ChatAssistant";
 import AIIntroductionModal from '../components/AIIntroductionModal';
+import { useState, useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,6 +71,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
+  const [adBlockerConfirmations, setAdBlockerConfirmations] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
+    }
+    return 0;
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedCount = localStorage.getItem('adBlockerConfirmations');
+      if ((!storedCount && adBlockerConfirmations < 2) || (storedCount && parseInt(storedCount, 10) < 2)) {
+        setShowAdBlockerModal(true);
+      }
+    }
+  }, [adBlockerConfirmations]);
+
   return (
     <html lang="en">
       <head>
@@ -101,7 +121,7 @@ export default function RootLayout({
         </nav>
         {children}
         <ChatAssistant />
-        <AIIntroductionModal />
+        <AIIntroductionModal showAdBlockerModal={showAdBlockerModal} />
       </body>
     </html>
   );
