@@ -15,6 +15,7 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const [showAdBlockerModal, setShowAdBlockerModal] = useState(false);
+  const [showAIIntroductionModal, setShowAIIntroductionModal] = useState(false);
   const [adBlockerConfirmations, setAdBlockerConfirmations] = useState(() => {
     if (typeof window !== 'undefined') {
       const count = parseInt(localStorage.getItem('adBlockerConfirmations') || '0', 10);
@@ -39,6 +40,17 @@ export default function ClientLayout({
       setShowAdBlockerModal(!shouldShowAdBlocker);
     }
   }, [adBlockerConfirmations]);
+
+  // Timer for AI Introduction Modal
+  useEffect(() => {
+    if (!showAdBlockerModal) {
+      const timer = setTimeout(() => {
+        setShowAIIntroductionModal(true);
+      }, 3000); // Show after 5 seconds if adblocker modal is not shown
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAdBlockerModal]);
 
   return (
     <html lang="en">
@@ -73,7 +85,11 @@ export default function ClientLayout({
         </nav>
         {children}
         <ChatAssistant />
-        <AIIntroductionModal showAdBlockerModal={showAdBlockerModal} />
+        <AIIntroductionModal 
+          showAdBlockerModal={showAdBlockerModal} 
+          showAIIntroductionModal={showAIIntroductionModal}
+          setShowAIIntroductionModal={setShowAIIntroductionModal}
+        />
       </body>
     </html>
   );

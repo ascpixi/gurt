@@ -5,44 +5,33 @@ import styles from './AIIntroductionModal.module.css';
 
 interface AIIntroductionModalProps {
   showAdBlockerModal: boolean;
+  showAIIntroductionModal: boolean;
+  setShowAIIntroductionModal: (show: boolean) => void;
 }
 
-export default function AIIntroductionModal({ showAdBlockerModal }: AIIntroductionModalProps) {
-  const [showModal, setShowModal] = useState(false);
+export default function AIIntroductionModal({ 
+  showAdBlockerModal, 
+  showAIIntroductionModal,
+  setShowAIIntroductionModal 
+}: AIIntroductionModalProps) {
   const [dimOpacity, setDimOpacity] = useState(0);
-  const adBlockerDismissedRef = useRef(false);
 
   useEffect(() => {
-    // Reset the dismissed flag when adblocker modal is shown
-    if (showAdBlockerModal) {
-      adBlockerDismissedRef.current = false;
-      setShowModal(false);
+    if (showAIIntroductionModal) {
+      setDimOpacity(1);
+    } else {
       setDimOpacity(0);
-    } else if (!adBlockerDismissedRef.current) {
-      // Only start the timer if this is the first time the adblocker is dismissed
-      adBlockerDismissedRef.current = true;
-      const timer = setTimeout(() => {
-        // Double check that the adblocker modal is still not showing
-        if (!showAdBlockerModal) {
-          setShowModal(true);
-          // Start the fade-in effect after a short delay
-          setTimeout(() => {
-            setDimOpacity(1);
-          }, 100);
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
     }
-  }, [showAdBlockerModal]);
+  }, [showAIIntroductionModal]);
 
   const handleClose = () => {
     setDimOpacity(0);
     setTimeout(() => {
-      setShowModal(false);
+      setShowAIIntroductionModal(false);
     }, 300);
   };
 
-  if (!showModal) return null;
+  if (!showAIIntroductionModal) return null;
 
   return (
     <div 
