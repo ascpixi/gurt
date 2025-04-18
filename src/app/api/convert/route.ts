@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import sharp from 'sharp';
+import path from 'path';
 
 export async function POST(request: Request) {
   try {
@@ -22,29 +23,15 @@ export async function POST(request: Request) {
     const width = metadata.width || 0;
     const height = metadata.height || 0;
 
-    // Create a simple watermark using a semi-transparent overlay
-    const watermarkSize = Math.min(width, height) * 0.4; // 40% of the smaller dimension
-    const watermarkBuffer = Buffer.from(`
-      <svg width="${watermarkSize}" height="${watermarkSize}">
-        <rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          fill="rgba(0, 0, 0, 0.5)"
-        />
-        <text
-          x="50%"
-          y="50%"
-          font-family="sans-serif"
-          font-size="${watermarkSize * 0.2}"
-          fill="white"
-          text-anchor="middle"
-          dominant-baseline="middle"
-          font-weight="bold"
-        >GURT</text>
-      </svg>
-    `);
+    // Get absolute path to watermark
+    const watermarkPath = path.join(process.cwd(), 'watermark.png');
+
+    // Resize watermark to match image dimensions
+    const watermarkBuffer = await sharp(watermarkPath)
+      .resize(width, height, {
+        fit: 'fill'
+      })
+      .toBuffer();
 
     switch (targetFormat.toLowerCase()) {
       case 'jpg':
@@ -52,8 +39,8 @@ export async function POST(request: Request) {
         convertedImage = await sharp(buffer)
           .composite([{
             input: watermarkBuffer,
-            top: Math.floor((height - watermarkSize) / 2),
-            left: Math.floor((width - watermarkSize) / 2),
+            top: 0,
+            left: 0,
             blend: 'over'
           }])
           .jpeg({ quality: 40 })
@@ -63,8 +50,8 @@ export async function POST(request: Request) {
         convertedImage = await sharp(buffer)
           .composite([{
             input: watermarkBuffer,
-            top: Math.floor((height - watermarkSize) / 2),
-            left: Math.floor((width - watermarkSize) / 2),
+            top: 0,
+            left: 0,
             blend: 'over'
           }])
           .png()
@@ -74,8 +61,8 @@ export async function POST(request: Request) {
         convertedImage = await sharp(buffer)
           .composite([{
             input: watermarkBuffer,
-            top: Math.floor((height - watermarkSize) / 2),
-            left: Math.floor((width - watermarkSize) / 2),
+            top: 0,
+            left: 0,
             blend: 'over'
           }])
           .webp({ quality: 40 })
