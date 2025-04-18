@@ -482,13 +482,13 @@ export default function Home() {
 
         <div className="mt-8">
           <a href="https://youtube.com/shorts/SQ-LNKmmnkQ" target="_blank" rel="noopener noreferrer" className="block">
-            <div className="bg-gray-200 rounded-lg h-[120px] md:h-[100px] flex items-center justify-center">
+            <div className="bg-gray-200 rounded-lg h-[120px] md:h-[100px] flex items-center justify-center overflow-hidden">
               <img
                 src="/ads/bottom-ad.jpg"
                 alt="Advertisement"
                 width={728}
-                height={90404}
-                className="object-cover w-full h-full"
+                height={90}
+                className="w-full h-full object-contain"
               />
             </div>
           </a>
