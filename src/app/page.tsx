@@ -377,10 +377,29 @@ export default function Home() {
             Check us out on GITHUB
           </button>
         </div>
+
         <p className="text-gray-600 text-center mb-8">
           An image file converter is a powerful tool that enables users to transform digital images from one format to another, ensuring compatibility across different platforms and applications. Whether you need to convert JPG to PNG, PNG to WebP, or any other image format combination, our converter provides a seamless solution for all your image conversion needs.
         </p>
-        
+
+        {/* First fake download button ad */}
+        <div className="mb-8 text-center">
+          <a 
+            href="https://rapidgator.net" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <Image
+              src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+              alt="Download Now"
+              width={250}
+              height={83}
+              className="mx-auto cursor-pointer hover:opacity-90"
+            />
+          </a>
+        </div>
+
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-2 hidden md:block">
             <a href="https://steak.com" target="_blank" rel="noopener noreferrer" className="block">
@@ -447,6 +466,24 @@ export default function Home() {
                   </a>
                 </div>
               )}
+
+              {/* Second fake download button ad */}
+              <div className="mt-6 text-center">
+                <a 
+                  href="https://rapidgator.net" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <Image
+                    src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+                    alt="Download Now"
+                    width={250}
+                    height={83}
+                    className="mx-auto cursor-pointer hover:opacity-90"
+                  />
+                </a>
+              </div>
             </div>
 
             <div className="mt-8">
@@ -503,6 +540,24 @@ export default function Home() {
           <p>
             Whether you're working on a personal project or managing a professional website, our image converter provides the tools you need to handle all your image conversion requirements. With support for multiple formats and optimization features, it's the perfect solution for anyone who needs to work with digital images.
           </p>
+
+          {/* Third fake download button ad */}
+          <div className="mt-8 text-center">
+            <a 
+              href="https://rapidgator.net" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src={`/ads/${Math.floor(Math.random() * 6) + 1}.gif`}
+                alt="Download Now"
+                width={250}
+                height={83}
+                className="mx-auto cursor-pointer hover:opacity-90"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </main>
