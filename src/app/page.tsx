@@ -487,7 +487,7 @@ export default function Home() {
                 src="/ads/bottom-ad.jpg"
                 alt="Advertisement"
                 width={728}
-                height={90}
+                height={90404}
                 className="object-cover"
               />
             </div>
