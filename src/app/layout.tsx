@@ -7,8 +7,46 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GURT Image Converter",
-  description: "Convert your images between different formats with our powerful online image converter tool.",
+  title: "GURT - Free Online Image & Video Converter",
+  description: "Convert images and videos between different formats instantly. Free, secure, and all processing done locally in your browser. Support for JPG, PNG, WebP, and MP4 formats.",
+  keywords: "image converter, video converter, online converter, free converter, jpg to png, png to webp, video compression, local processing",
+  authors: [{ name: "GURT Team" }],
+  creator: "GURT Team",
+  publisher: "GURT",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://gurt.vercel.app",
+    title: "GURT - Free Online Image & Video Converter",
+    description: "Convert images and videos between different formats instantly. Free, secure, and all processing done locally in your browser.",
+    siteName: "GURT Converter",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GURT - Free Online Image & Video Converter",
+    description: "Convert images and videos between different formats instantly. Free, secure, and all processing done locally in your browser.",
+    creator: "@gurt",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  verification: {
+    google: "google-site-verification-code",
+  },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -25,6 +63,7 @@ export default function RootLayout({
         <Script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js" strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" strategy="beforeInteractive" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
       <body className={inter.className}>
         <nav className="bg-white shadow-md">
